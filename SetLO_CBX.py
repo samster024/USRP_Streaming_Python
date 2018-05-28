@@ -64,7 +64,7 @@ class CalculateDividers:
 
             C2 = C1 + 1
 
-            Iteration = 79  #Check it
+            Iteration = 7  #Check it
 
             Iteration_Incremented = Iteration + 1
 
@@ -236,7 +236,7 @@ class SetLO_CBX:
 
         Mod = 4095
 
-        Ref_Freq = Target_Frequency
+        Ref_Freq = Data_Rate
 
         RF_DIV = 1
         while Target_Frequency < 3000000000:
@@ -344,7 +344,7 @@ if __name__ == '__main__':
             self.Destination = Destination
                             #Radio_Perif_0/Radio_Perif_1/Global/Radio_0_I2C/Radio_1_I2C/Global_I2C/Radio_0_SPI/Radio_1_SPI/Global_SPI
 
-    Input = InputVariables(2000000000, 200000000, False, 0, 'Radio_Perif_0')
+    Input = InputVariables(2000000000, 200000000, True, 0, 'Radio_Perif_0')
 
     Output = SetLO_CBX()
     O1 = Output.Set_LO_CBX(Input.Target_Frequency, Input.Data_Rate, Input.Integer_N_Mode, Input.Device_Sub_Function, Input.Destination)
