@@ -56,7 +56,12 @@ class CalculateDividers:
 
         Flag = False
 
+        Iteration = 0
+
         while Flag == False:
+
+            Iteration = Iteration + 1
+
             if Ref_Div == True:
                 C1 = 1
             else:
@@ -64,15 +69,11 @@ class CalculateDividers:
 
             C2 = C1 + 1
 
-            Iteration = 3  #Check it
-
-            Iteration_Incremented = Iteration + 1
-
-            Multiplier_1 = C2 * Iteration_Incremented
+            Multiplier_1 = C2 * Iteration
 
             R_Counter_Max_Value = 1023
 
-            if Iteration_Incremented > R_Counter_Max_Value:
+            if Iteration > R_Counter_Max_Value:
                 While_OR_2 = True
             else:
                 While_OR_2 = False
@@ -100,17 +101,15 @@ class CalculateDividers:
                 INT = 0
                 Pfd_Freq = Freq2
 
-                Quo = Iteration_Incremented // 2
-                Rem = Iteration_Incremented % 2
+                Quo = Iteration // 2
+                Rem = Iteration % 2
 
                 if Rem == 0:
                     R = Quo
                     Ref_Div_2 = True
                 else:
-                    R = Iteration_Incremented
+                    R = Iteration
                     Ref_Div_2 = Ref_Div
-
-                return(Frac, Band_Select, INT, Pfd_Freq, R, Ref_Div_2, Feedback_Divisor)
 
                 While_OR_1 = False
 
@@ -118,6 +117,7 @@ class CalculateDividers:
 
                 if Loop_Function == True:
                     Flag = True
+
             else:
 
                 Freq3 = Target_Frequency // Freq2
@@ -202,22 +202,22 @@ class CalculateDividers:
 
                 Pfd_Freq = Freq2
 
-                Quo = Iteration_Incremented // 2
-                Rem = Iteration_Incremented % 2
+                Quo = Iteration // 2
+                Rem = Iteration % 2
 
                 if Rem == 0:
                     R = Quo
                     Ref_Div_2 = True
                 else:
-                    R = Iteration_Incremented
+                    R = Iteration
                     Ref_Div_2 = Ref_Div
-
-                return (Frac, Band_Select, INT, Pfd_Freq, R, Ref_Div_2, Feedback_Divisor)
 
                 Loop_Function = While_OR_1 | While_OR_2
 
                 if Loop_Function == True:
                     Flag = True
+
+        return (Frac, Band_Select, INT, Pfd_Freq, R, Ref_Div_2, Feedback_Divisor)
 
 class TuneLO_UBX:
 
@@ -257,7 +257,7 @@ class TuneLO_UBX:
 
         Output = CalculateDividers()
         O1 = Output.Calculate_Dividers(Integer_N_Mode, Mod, Target_Frequency, D_Terminal, Ref_Freq, Target_PFD_Frequency, Ref_Div, Feedback_Is_Divided, RF_DIV, Integer_N_Mode_Max_N_Value)
-
+        print(O1)
         Frac = O1[0]
         Band_Select = O1[1]
         INT = O1[2]
