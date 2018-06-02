@@ -1,5 +1,7 @@
 import math
 import CreateMax2870Packets as O3
+import FormatRadioCommand as O4
+import EncodingStream as O5
 
 class CalculateCoerceFrequency:
 
@@ -264,7 +266,7 @@ class SetLO_CBX:
         R = O1[4]
         Ref_Div_2 = O1[5]
         Feedback_Divisor = O1[6]
-        print(R)
+
         Output1 = CalculateCoerceFrequency()
         O2 = Output1.Calculate_Coerce_Frequency(Frac, INT, Ref_Div_2, RF_DIV, D_Terminal, R, Data_Rate, Mod, Feedback_Divisor)
 
@@ -326,7 +328,7 @@ class SetLO_CBX:
             Flag = True
 
         Constant_Register4[0] = Flag
-        print(Constant_Register2)
+
         Packets = O3.Create_Max_2870_Packets(Constant_Register0, Constant_Register1, Constant_Register2, Constant_Register3, Constant_Register4, Constant_Register5, Device_Sub_Function, Destination)
 
         return(LO_Frequency, Coerced_Frequency, Packets)
@@ -349,3 +351,19 @@ if __name__ == '__main__':
     Output = SetLO_CBX()
     O1 = Output.Set_LO_CBX(Input.Target_Frequency, Input.Data_Rate, Input.Integer_N_Mode, Input.Device_Sub_Function, Input.Destination)
     print(O1)
+
+    Number_Of_Packets = len(O1[2])
+
+    Index_Address = 1
+    Sequence_Number = 1
+    Destination = "Radio_Perif_0"  # Radio_Perif_0/Radio_Perif_1/Global/Radio_0_I2C/Radio_1_I2C/Global_I2C/Radio_0_SPI/Radio_1_SPI/Global_SPI
+
+    for i in range(Number_Of_Packets):
+        Address = O1[2][i][1]
+        Data = O1[2][i][2]
+        Output_Packets = O4.construct_radio_register(Index_Address, Address, Data, Destination, Sequence_Number)
+        Number_Of_Packets1 = len(Output_Packets)
+        print(Output_Packets)
+        for j in range(Number_Of_Packets1):
+            Output_Encoded = O5.Encode_Process(Output_Packets[j])
+            print (Output_Encoded)
