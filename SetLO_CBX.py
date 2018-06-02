@@ -356,14 +356,21 @@ if __name__ == '__main__':
 
     Index_Address = 1
     Sequence_Number = 1
-    Destination = "Radio_Perif_0"  # Radio_Perif_0/Radio_Perif_1/Global/Radio_0_I2C/Radio_1_I2C/Global_I2C/Radio_0_SPI/Radio_1_SPI/Global_SPI
+    Destination = "Radio_0_Config"
 
-    for i in range(Number_Of_Packets):
-        Address = O1[2][i][1]
-        Data = O1[2][i][2]
-        Output_Packets = O4.construct_radio_register(Index_Address, Address, Data, Destination, Sequence_Number)
-        Number_Of_Packets1 = len(Output_Packets)
-        print(Output_Packets)
-        for j in range(Number_Of_Packets1):
-            Output_Encoded = O5.Encode_Process(Output_Packets[j])
-            print (Output_Encoded)
+    with open("Result_CBX_1", 'w') as f:
+        for i in range(Number_Of_Packets):
+            Address = O1[2][i][1]
+            Data = O1[2][i][2]
+            Output_Packets = O4.construct_radio_register(Index_Address, Address, Data, Destination, Sequence_Number)
+            Number_Of_Packets1 = len(Output_Packets)
+            print(Output_Packets)
+            Output_Packets_Str = str(Output_Packets)
+            data_write = f.write(Output_Packets_Str)
+            data_write = f.write("\n")
+            for j in range(Number_Of_Packets1):
+                Output_Encoded = O5.Encode_Process(Output_Packets[j])
+                print (Output_Encoded)
+                data_write = f.write(Output_Encoded)
+                data_write = f.write("\n")
+    f.close()
