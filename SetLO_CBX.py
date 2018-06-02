@@ -226,7 +226,7 @@ class SetLO_CBX:
 
         Constant_Register0 = [False, 125, 0, False, False, False]  #INT_mode, INT, FRAC, C3, C2, C1
         Constant_Register1 = [False, 1, 0, 1, 4095, False, False, True]   #CPOC, CPL, CPT, Phase, MOD, C3, C2, C1
-        Constant_Register2 = [False, 3, 1, False, False, 1, False, 8, False, False, True, False, False, False, False, True, False]
+        Constant_Register2 = [False, 3, 1, False, False, 1, False, 7, False, False, True, False, False, False, False, True, False]
                                     # LDS, SDN, MUX, DBR, RDIV2, R, REG4DB, CP, LDF, LDP, PDP, SHDN, TRI, RST, C3, C2, C1
         Constant_Register3 = [0, False, True, 0, 1, False, True, True]  #VCO, VAS_SHDN, RETUNE, CDM, CDIV, C3, C2, C1
         Constant_Register4 = [True, 0, 0, True, False, 0, True, 3, True, False, False]
@@ -257,7 +257,6 @@ class SetLO_CBX:
 
         Output = CalculateDividers()
         O1 = Output.Calculate_Dividers(Integer_N_Mode, Mod, Target_Frequency, D_Terminal, Ref_Freq, Target_PFD_Frequency, Ref_Div, Feedback_Is_Divided, RF_DIV, Integer_N_Mode_Max_N_Value)
-        print(O1)
         Frac = O1[0]
         Band_Select = O1[1]
         INT = O1[2]
@@ -265,7 +264,7 @@ class SetLO_CBX:
         R = O1[4]
         Ref_Div_2 = O1[5]
         Feedback_Divisor = O1[6]
-
+        print(R)
         Output1 = CalculateCoerceFrequency()
         O2 = Output1.Calculate_Coerce_Frequency(Frac, INT, Ref_Div_2, RF_DIV, D_Terminal, R, Data_Rate, Mod, Feedback_Divisor)
 
@@ -296,7 +295,7 @@ class SetLO_CBX:
             if Select_Line == True:
                 Constant_Register4[7] = 2
             else:
-                Constant_Register4[7] = 1
+                Constant_Register4[7] = 3
         else:
             Constant_Register4[7] = 3
 
@@ -327,7 +326,7 @@ class SetLO_CBX:
             Flag = True
 
         Constant_Register4[0] = Flag
-
+        print(Constant_Register2)
         Packets = O3.Create_Max_2870_Packets(Constant_Register0, Constant_Register1, Constant_Register2, Constant_Register3, Constant_Register4, Constant_Register5, Device_Sub_Function, Destination)
 
         return(LO_Frequency, Coerced_Frequency, Packets)

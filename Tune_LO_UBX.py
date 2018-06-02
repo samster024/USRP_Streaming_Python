@@ -240,6 +240,7 @@ class TuneLO_UBX:
         Ref_Freq = Data_Rate
 
         RF_DIV = 1
+
         while Target_Frequency < 3000000000:
             Target_Frequency = Target_Frequency * 2
             RF_DIV = RF_DIV * 2
@@ -257,7 +258,7 @@ class TuneLO_UBX:
 
         Output = CalculateDividers()
         O1 = Output.Calculate_Dividers(Integer_N_Mode, Mod, Target_Frequency, D_Terminal, Ref_Freq, Target_PFD_Frequency, Ref_Div, Feedback_Is_Divided, RF_DIV, Integer_N_Mode_Max_N_Value)
-        print(O1)
+
         Frac = O1[0]
         Band_Select = O1[1]
         INT = O1[2]
