@@ -355,12 +355,12 @@ if __name__ == '__main__':
     Number_Of_Packets = len(O1[2])
 
     Index_Address = 1
-    Sequence_Number = 1
     Destination = "Radio_0_Config"
 
     with open("Result_CBX_1", 'w') as f:
         for i in range(Number_Of_Packets):
-            Address = O1[2][i][1]
+            Sequence_Number = i + 1
+            Address = O1[2][i][1] // 4
             Data = O1[2][i][2]
             Output_Packets = O4.construct_radio_register(Index_Address, Address, Data, Destination, Sequence_Number)
             Number_Of_Packets1 = len(Output_Packets)
