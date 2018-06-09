@@ -37,6 +37,7 @@ class CalculateCoerceFrequency:
 
         return(R8)
 
+
 class CalculateDividers:
 
     def Calculate_Dividers(self, Integer_N_Mode, Mod, Target_Frequency, D_Terminal, Ref_Freq, Target_PFD_Frequency, Ref_Div, Feedback_Is_Divided, RF_DIV, Integer_N_Mode_Max_N_Value):
@@ -219,9 +220,8 @@ class CalculateDividers:
 
         return (Frac, Band_Select, INT, Pfd_Freq, R, Ref_Div_2, Feedback_Divisor)
 
-class TuneLO_UBX:
 
-    def Tune_LO_UBX(self, Target_Frequency, Data_Rate, Integer_N_Mode, Device_Sub_Function, Destination, UBX_LO_Value, Band_Index):
+def Tune_LO_UBX(Target_Frequency, Data_Rate, Integer_N_Mode, Device_Sub_Function, Destination, UBX_LO_Value, Band_Index):
 
         Constant_Register0 = [False, 0, 0, False, False, False]  #INT_mode, INT, FRAC, C3, C2, C1
         Constant_Register1 = [0, 0, 0, 0, False, False, True]   #CPL, CPT, Phase, MOD, C3, C2, C1
@@ -443,24 +443,3 @@ class TuneLO_UBX:
         Packets = O3.Create_Max_2871_Packets(Constant_Register0, Constant_Register1, Constant_Register2, Constant_Register3, Constant_Register4, Constant_Register5, Device_Sub_Function_TX, Destination)
 
         return(Coerced_Frequency, Packets)
-
-if __name__ == '__main__':
-
-    class InputVariables:
-
-        def __init__(self, Target_Frequency, Data_Rate, Integer_N_Mode, Device_Sub_Function, Destination, UBX_LO_Value, Band_Index):
-
-            self.Target_Frequency = Target_Frequency
-            self.Data_Rate = Data_Rate
-            self.Integer_N_Mode = Integer_N_Mode
-            self.Device_Sub_Function = Device_Sub_Function   # 0 for TX, 1 for Default/RX
-            self.Destination = Destination
-                            #Radio_Perif_0/Radio_Perif_1/Global/Radio_0_I2C/Radio_1_I2C/Global_I2C/Radio_0_SPI/Radio_1_SPI/Global_SPI
-            self.UBX_LO_Value = UBX_LO_Value
-            self.Band_Index = Band_Index
-
-    Input = InputVariables(2000000000, 200000000, False, 1, 'Radio_Perif_0', 'LO1', 0)
-
-    Output = TuneLO_UBX()
-    O1 = Output.Tune_LO_UBX(Input.Target_Frequency, Input.Data_Rate, Input.Integer_N_Mode, Input.Device_Sub_Function, Input.Destination, Input.UBX_LO_Value, Input.Band_Index)
-    print(O1)
