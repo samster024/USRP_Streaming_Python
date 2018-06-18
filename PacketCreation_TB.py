@@ -12,7 +12,7 @@ if __name__ == '__main__':
             self.SSID = SSID
             self.Sequence_Number = Sequence_Number
 
-    Input = InputClass(1, 8, 3, "Radio_0_Config", 1)
+    Input = InputClass(1, 9, 213, "Radio_0_Config", 12)
 
     Output = O1.construct_radio_register(Input.Index_Address, Input.Address, Input.Data, Input.SSID, Input.Sequence_Number)
     Number_Of_Packets = len(Output)

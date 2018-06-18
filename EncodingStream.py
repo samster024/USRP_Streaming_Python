@@ -16,8 +16,12 @@ def Encode_Process(O1):
 
     Output_Stream = SSID | Data_Shifted | Address_Shifted | Notify_Shifted | Read_Shifted
 
+    print(Output_Stream)
+
     Output_Stream_Binary = bin(Output_Stream)[2: ]
 
     Output_Stream_Binary_Format = Output_Stream_Binary.zfill(64)
+
+    #Output_Stream_hex_Format = hex(Output_Stream_Binary_Format)
 
     return(Output_Stream_Binary_Format)

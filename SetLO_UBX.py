@@ -156,7 +156,7 @@ class SetLO_UBX:
                 LO2_Flag = False
 
             LO_Number = 'LO1'
-
+            print(Selected_band_index)
             LO1_Output = I1.Tune_LO_UBX(LO1_Frequency, Data_Rate, Integer_N_Mode, Device_Sub_Function, Destination, LO_Number, Selected_band_index)
             LO1_Frequency_Out = LO1_Output[0]
 
@@ -188,7 +188,7 @@ if __name__ == '__main__':
             self.Destination = Destination
                             #Radio_Perif_0/Radio_Perif_1/Global/Radio_0_I2C/Radio_1_I2C/Global_I2C/Radio_0_SPI/Radio_1_SPI/Global_SPI
 
-    Input = InputVariables(200000000, 200000000, True, 0, 'Radio_Perif_0')
+    Input = InputVariables(2000000000, 200000000, True, 0, 'Radio_Perif_0')
 
     Output = SetLO_UBX()
     O1 = Output.Set_LO_UBX(Input.Target_Frequency, Input.Data_Rate, Input.Integer_N_Mode, Input.Device_Sub_Function, Input.Destination)
@@ -214,12 +214,15 @@ if __name__ == '__main__':
             Number_Of_Packets1 = len(Output_Packets)
             print(Output_Packets)
             Output_Packets_Str = str(Output_Packets)
-            data_write = f.write(Output_Packets_Str)
-            data_write = f.write("\n")
+            #data_write = f.write(Output_Packets_Str)
+            #data_write = f.write("\n")
             for j in range(Number_Of_Packets1):
                 Output_Encoded = O3.Encode_Process(Output_Packets[j])
                 print(Output_Encoded)
-                data_write = f.write(Output_Encoded)
+                #data_write = f.write(Output_Encoded)
+                #data_write = f.write("\n")
+                Output_Decimal = int(Output_Encoded, 2)
+                data_write = f.write(str(Output_Decimal))
                 data_write = f.write("\n")
     f.close()
 
@@ -243,11 +246,14 @@ if __name__ == '__main__':
                 Number_Of_Packets3 = len(Output_Packets_2)
                 print(Output_Packets_2)
                 Output_Packets_Str = str(Output_Packets_2)
-                data_write = f.write(Output_Packets_Str)
-                data_write = f.write("\n")
+                #data_write = f.write(Output_Packets_Str)
+                #data_write = f.write("\n")
                 for j in range(Number_Of_Packets3):
                     Output_Encoded = O3.Encode_Process(Output_Packets_2[j])
                     print(Output_Encoded)
-                    data_write = f.write(Output_Encoded)
+                    #data_write = f.write(Output_Encoded)
+                    #data_write = f.write("\n")
+                    Output_Decimal = int(Output_Encoded, 2)
+                    data_write = f.write(str(Output_Decimal))
                     data_write = f.write("\n")
         f.close()
